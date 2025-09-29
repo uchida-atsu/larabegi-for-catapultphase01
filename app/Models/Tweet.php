@@ -25,4 +25,11 @@ class Tweet extends Model
     {
         return $this->belongsToMany(User::class)->withTimestamps();
     }
+
+    public function reads()
+    {
+        // 'TweetRead' モデルがこのツイートの読了記録を保持していると仮定
+        // 'tweet_id' は TweetRead テーブルにある外部キー名
+        return $this->hasMany(TweetRead::class, 'tweet_id');
+    }
 }

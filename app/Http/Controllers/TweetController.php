@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Tweet;
+use App\Models\TweetRead;
 use Illuminate\Http\Request;
 
 class TweetController extends Controller
@@ -52,6 +53,14 @@ class TweetController extends Controller
      */
     public function show(Tweet $tweet)
     {
+        
+        $user = auth()->user();
+
+        TweetRead::updateOrCreate(
+            ['user_id' => $user->id, 'tweet_id' => $tweet->id],
+            ['read_at' => now()]
+        );
+
         $tweet->load('comments');
         return view('tweets.show', compact('tweet'));
     }
@@ -112,4 +121,8 @@ class TweetController extends Controller
 
         return view('tweets.search', compact('tweets'));
     }
+    // public function reads()
+    // {
+    //     return $this->hasMany(TweetRead::class);
+    // }
 }

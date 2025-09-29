@@ -1,4 +1,5 @@
-@props(['active'])
+@props(['active', 'unreadCount' => 0]) 
+<!-- unreadCountを追加 (デフォルト値 0) -->
 
 @php
 $classes = ($active ?? false)
@@ -8,4 +9,11 @@ $classes = ($active ?? false)
 
 <a {{ $attributes->merge(['class' => $classes]) }}>
     {{ $slot }}
+
+    <!-- リンクの内部にバッジのロジックを追加 -->
+    @if($unreadCount > 0)
+        <span class="ml-1 bg-red-500 text-white text-xs rounded-full px-2 py-0.5">
+            {{ $unreadCount }}
+        </span>
+    @endif
 </a>
