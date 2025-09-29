@@ -25,9 +25,12 @@ class AppServiceProvider extends ServiceProvider
         View::composer('*', function ($view) {
             $unreadCount = 0;
             if (Auth::check()) {
-                $unreadCount = Tweet::whereDoesntHave('reads', function ($query) {
+                $unreadCount = Tweet::where('user_id', '!=', Auth::id()) // ★ 自分の投稿は除外
+                ->whereDoesntHave('reads', function ($query) {
                     $query->where('user_id', Auth::id());
-                })->count();
+                })
+                ->count();
+
             }
             $view->with('unreadCount', $unreadCount);
         });
