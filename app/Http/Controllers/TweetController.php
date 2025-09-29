@@ -60,7 +60,6 @@ class TweetController extends Controller
             ['user_id' => $user->id, 'tweet_id' => $tweet->id],
             ['read_at' => now()]
         );
-
         $tweet->load('comments');
         return view('tweets.show', compact('tweet'));
     }
