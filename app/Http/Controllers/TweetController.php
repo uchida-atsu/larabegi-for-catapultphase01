@@ -19,9 +19,14 @@ class TweetController extends Controller
         // $tweets = $query
         //     ->latest()
         //     ->paginate(10);
+        $tweets = Tweet::with([
+            'user',
+            'liked',
+            'reads' => function ($q) {
+                $q->where('user_id', auth()->id());
+            }
+        ])->latest()->paginate(10);
 
-
-        $tweets = Tweet::with(['user', 'liked'])->latest()->paginate(10);
         return view('tweets.index', compact('tweets'));
     }
 

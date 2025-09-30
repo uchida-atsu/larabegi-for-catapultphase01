@@ -64,7 +64,7 @@ it('not contain auth tweet into unreading', function () {
     expect($unreadCount)->toBe(0);
 });
 
-it('display the batch on mypage', function () {
+it('display the batch on indexpage', function () {
     $tweet = Tweet::factory()->create(['user_id' => $this->userA->id]);
 
     $this->actingAs($this->userB);

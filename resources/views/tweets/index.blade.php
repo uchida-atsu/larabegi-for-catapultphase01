@@ -14,7 +14,8 @@
             {{ $tweets->appends(request()->input())->links() }}
           </div>
           @foreach ($tweets as $tweet)
-          <div class="mb-4 p-4 bg-gray-100 dark:bg-gray-700 rounded-lg">
+          <div class="mb-4 p-4 rounded-lg
+            {{ $tweet->reads->isEmpty() ? 'bg-red-100 dark:bg-red-800' : 'bg-gray-100 dark:bg-gray-700' }}">
             <p class="text-gray-800 dark:text-gray-300">{{ $tweet->tweet }}</p>
             <a href="{{ route('profile.show', $tweet->user) }}">
               <p class="text-gray-600 dark:text-gray-400 text-sm">投稿者: {{ $tweet->user->name }}</p>

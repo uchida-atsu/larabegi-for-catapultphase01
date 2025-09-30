@@ -32,4 +32,9 @@ class Tweet extends Model
         // 'tweet_id' は TweetRead テーブルにある外部キー名
         return $this->hasMany(TweetRead::class, 'tweet_id');
     }
+
+    public function isReadBy($userId)
+    {
+        return $this->reads()->where('user_id', $userId)->exists();
+    }
 }

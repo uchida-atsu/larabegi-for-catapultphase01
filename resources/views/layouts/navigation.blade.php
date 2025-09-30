@@ -17,6 +17,11 @@
                     </x-nav-link>
                     <x-nav-link :href="route('tweets.index')" :active="request()->routeIs('tweets.index')">
                         {{ __('Tweet一覧') }}
+                        @if($unreadCount > 0)
+                            <span class="ml-2 inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-red-600 text-white">
+                                {{ $unreadCount }}
+                            </span>
+                        @endif
                     </x-nav-link>
                     <x-nav-link :href="route('tweets.create')" :active="request()->routeIs('tweets.create')">
                         {{ __('Tweet作成') }}
@@ -26,11 +31,6 @@
                     </x-nav-link>
                     <x-nav-link :href="route('profile.show', auth()->user())" :active="request()->routeIs('profile.show')">
                         {{ __('マイページ') }}
-                        @if($unreadCount > 0)
-                            <span class="ml-2 inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-red-600 text-white">
-                                {{ $unreadCount }}
-                            </span>
-                        @endif
                     </x-nav-link>
                 </div>
             </div>
